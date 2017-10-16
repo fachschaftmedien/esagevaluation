@@ -7,22 +7,26 @@ const fs = require('fs');
 const id = require('shortid');
 
 function persist(evaluation){
-    let collected = load();
+    let current = load();
     evaluation.date = new Date();
     evaluation.id = id.generate();
-    collected.push(evaluation);
-    fs.writeFileSync(filename, JSON.stringify(collected));
+    current.push(evaluation);
+    persistAll(current);
+}
+
+function persistAll(all){
+    fs.writeFileSync(filename, JSON.stringify(all), {flag: 'w'});
 }
 
 function load(){
-    return JSON.parse(fs.readFileSync(filename, 'utf-8'));
+    return fs.existsSync(filename) ? JSON.parse(fs.readFileSync(filename, {flag: 'r', encoding: 'utf8'})) : [];
 }
 
 function remove(id){
     let current = load();
     let updated = current.filter(el => el.id !== id);
     let removed = current.length !== updated.length;
-    if(removed) fs.writeFileSync(filename, JSON.stringify(updated));
+    if(removed) persistAll(updated);
     return removed;
 }
 
@@ -50,6 +54,7 @@ module.exports = {
     find: find,
     remove: remove,
     persist: persist,
+    persistAll: persistAll,
     load: load,
     check: check
 };

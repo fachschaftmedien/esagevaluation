@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "set PORT=8888 && node server.js",
-    "start": "set PORT=3000 && node server.js "
+    "dev": "set PORT=3000 && node server.js",
+    "start": "npm run dev"
   },
   "author": "nasskaltejuni",
   "license": "MIT",

@@ -28,10 +28,10 @@ app.get('/',function(req, res){
 app.post('/evaluation', function(req, res){
     let checked = evaluation.check(req.body);
     if(checked.acceptable){
-        evaluation.persist(req.body, req.clientID);
+        let id = evaluation.persist(req.body);
         res.status(201).send({
             text: 'Daten erfolgreich gespeichert',
-            id: req.uuid
+            id: id
         });
     }else{
         res.status(400).send({
@@ -70,8 +70,8 @@ app.get('/evaluation/:id', function(req, res){
     }
 });
 
-
+console.log('start node js server');
 app.listen(port, function () {
-    console.log('CORS-enabled web server listening on port '+port);
+    console.log('server listening on port '+port);
 });
 

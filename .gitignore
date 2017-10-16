@@ -1,0 +1,9 @@
+# don't track intellij workspace information
+.idea
+.idea/*
+
+# don't track the stored data
+evaluation.json
+
+# don't track the dependencies (they are already listed in the package.json, the user should install them on start)
+node_modules
