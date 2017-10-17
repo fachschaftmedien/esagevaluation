@@ -1,6 +1,5 @@
-/**
- * created by NasskalteJuni
- */
+'use-strict';
+
 sha1 = require('sha1');
 
 module.exports = function(){

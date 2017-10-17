@@ -1,7 +1,5 @@
-/**
- * created by NasskalteJuni
- * Wrapping around File Storage
- */
+'use strict';
+
 let filename = 'evaluation.json';
 let filepath = '.';
 const path = require('path');
