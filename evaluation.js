@@ -2,9 +2,13 @@
  * created by NasskalteJuni
  * Wrapping around File Storage
  */
-const filename = './evaluation.json';
+let filename = 'evaluation.json';
+let filepath = '.';
+const path = require('path');
+const resource = r => path.join(filepath, filename);
 const fs = require('fs');
 const id = require('shortid');
+
 
 function persist(evaluation){
     let current = load();
@@ -15,11 +19,11 @@ function persist(evaluation){
 }
 
 function persistAll(all){
-    fs.writeFileSync(filename, JSON.stringify(all), {flag: 'w'});
+    fs.writeFileSync(resource(), JSON.stringify(all), {flag: 'w'});
 }
 
 function load(){
-    return fs.existsSync(filename) ? JSON.parse(fs.readFileSync(filename, {flag: 'r', encoding: 'utf8'})) : [];
+    return fs.existsSync(resource()) ? JSON.parse(fs.readFileSync(resource(), {flag: 'r', encoding: 'utf8'})) : [];
 }
 
 function remove(id){
@@ -51,10 +55,11 @@ function check(evaluation){
 
 module.exports = {
     filename: filename,
+    filepath: filepath,
     find: find,
     remove: remove,
     persist: persist,
     persistAll: persistAll,
     load: load,
-    check: check
+    check: check,
 };

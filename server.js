@@ -8,8 +8,10 @@ const userAgent = require('express-useragent');
 const clientID = require('./clientID');
 const checkKey = require('./checkKey');
 const evaluation = require('./evaluation');
+evaluation.filepath = process.env.OPENSHIFT_DATA_DIR || '.';
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 3000;
+const ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 const sha1 = require('sha1');
 const fs = require('fs');
 
@@ -71,7 +73,8 @@ app.get('/evaluation/:id', function(req, res){
 });
 
 console.log('start node js server');
-app.listen(port, function () {
-    console.log('server listening on port '+port);
+app.listen(port, ip, function () {
+    console.log('server listening on')
+    console.log('http://'+ip.trim()+':'+port.trim()+'/');
 });
 
