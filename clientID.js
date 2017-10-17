@@ -7,7 +7,7 @@ module.exports = function(){
 };
 
 function generateClientID(req, res, next){
-    const hash = sha1(req.ip + req.useragent);
+    var hash = sha1(req.ip + req.useragent);
     if(req.body) req.body.user = hash;
     next();
 }

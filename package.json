@@ -2,10 +2,10 @@
   "name": "esagevaluation",
   "version": "1.0.0",
   "description": "backend logic of the esag page",
-  "main": "--harmony server.js",
+  "main": "server.js",
   "scripts": {
-    "test": "set PORT=8888 && node server.js",
-    "dev": "set PORT=3000 && node server.js",
+    "test": "node server.js",
+    "dev": "node server.js",
     "start": "npm run dev"
   },
   "author": "nasskaltejuni",
