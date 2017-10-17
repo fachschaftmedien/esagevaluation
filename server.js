@@ -1,18 +1,18 @@
 'use strict';
 
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const userAgent = require('express-useragent');
-const clientID = require('./clientID');
-const checkKey = require('./checkKey');
-const evaluation = require('./evaluation');
+var express = require('express');
+var cors = require('cors');
+var bodyParser = require('body-parser');
+var userAgent = require('express-useragent');
+var clientID = require('./clientID');
+var checkKey = require('./checkKey');
+var evaluation = require('./evaluation');
 evaluation.filepath = process.env.OPENSHIFT_DATA_DIR || '.';
-const app = express();
-const port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 3000;
-const ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-const sha1 = require('sha1');
-const fs = require('fs');
+var app = express();
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 3000;
+var ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+var sha1 = require('sha1');
+var fs = require('fs');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -27,9 +27,9 @@ app.get('/',function(req, res){
 });
 
 app.post('/evaluation', function(req, res){
-    let checked = evaluation.check(req.body);
+    var checked = evaluation.check(req.body);
     if(checked.acceptable){
-        let id = evaluation.persist(req.body);
+        var id = evaluation.persist(req.body);
         res.status(201).send({
             text: 'Daten erfolgreich gespeichert',
             id: id
@@ -43,7 +43,7 @@ app.post('/evaluation', function(req, res){
 });
 
 app.get('/evaluation', function(req, res){
-    let key = req.query.key || req.body.key;
+    var key = req.query.key || req.body.key;
     if(key && key.length >= 0 && key.length <= 50 && checkKey(key)){
         res.status(200).json(evaluation.load());
     }else{
@@ -52,8 +52,8 @@ app.get('/evaluation', function(req, res){
 });
 
 app.delete('/evaluation/:id', function(req, res){
-    let id = req.params.id || req.query.id;
-    let key = req.query.key || req.body.key;
+    var id = req.params.id || req.query.id;
+    var key = req.query.key || req.body.key;
     if(key && key.length >= 0 && key.length <= 50 && checkKey(key)){
         res.status(200).json({deleted: evaluation.remove(id)});
     }else{
@@ -62,8 +62,8 @@ app.delete('/evaluation/:id', function(req, res){
 });
 
 app.get('/evaluation/:id', function(req, res){
-    let id = req.params.id || req.query.id;
-    let key = req.query.key || req.body.key;
+    var id = req.params.id || req.query.id;
+    var key = req.query.key || req.body.key;
     if(key && key.length >= 0 && key.length <= 50 && checkKey(key)){
         res.status(200).json(evaluation.find(id));
     }else{
