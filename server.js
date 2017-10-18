@@ -73,7 +73,7 @@ app.get('/evaluation/:id', function(req, res){
 
 console.log('start node js server');
 app.listen(port, ip, function () {
-    console.log('server listening on')
-    console.log('http://'+ip.trim()+':'+port.trim()+'/');
+    console.log('server listening on');
+    console.log('http://'+ip+':'+port+'/');
 });
 
