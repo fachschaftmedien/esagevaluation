@@ -9,8 +9,6 @@ var checkKey = require('./checkKey');
 var evaluation = require('./evaluation');
 evaluation.filepath = process.env.OPENSHIFT_DATA_DIR || '.';
 var app = express();
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 3000;
-var ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var sha1 = require('sha1');
 var fs = require('fs');
 
@@ -21,6 +19,8 @@ app.use(clientID());
 
 app.options('*', cors());
 app.set('trust proxy',true);
+app.set('ip', process.env.OPENSHIFT_NODEJS_IP || process.env.HOST || '127.0.0.1');
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3000);
 
 app.get('/',function(req, res){
     res.sendFile(__dirname + '/index.html');
@@ -72,8 +72,8 @@ app.get('/evaluation/:id', function(req, res){
 });
 
 console.log('start node js server');
-app.listen(port, ip, function () {
+app.listen(app.get('port'), app.get('ip'), function () {
     console.log('server listening on');
-    console.log('http://'+ip+':'+port+'/');
+    console.log('http://'+app.get('ip')+':'+app.get('port')+'/');
 });
 
