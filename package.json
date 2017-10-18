@@ -1,12 +1,12 @@
 {
   "name": "esagevaluation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "backend logic of the esag page",
   "main": "server.js",
   "scripts": {
     "test": "node server.js",
     "dev": "node server.js",
-    "start": "npm run dev"
+    "start": "node server.js"
   },
   "author": "nasskaltejuni",
   "license": "MIT",
@@ -17,5 +17,13 @@
     "express-useragent": "^1.0.8",
     "sha1": "^1.1.1",
     "shortid": "^2.2.8"
+  },
+  "engine": {
+    "node": "*",
+    "npm": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NasskalteJuni/esagevaluation.git"
   }
 }
