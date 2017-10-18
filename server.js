@@ -30,7 +30,7 @@ app.post('/evaluation', function(req, res){
     var checked = evaluation.check(req.body);
     if(checked.acceptable){
         var id = evaluation.persist(req.body);
-        res.status(201).send({
+        res.status(201).json({
             text: 'Daten erfolgreich gespeichert',
             id: id
         });
@@ -39,6 +39,23 @@ app.post('/evaluation', function(req, res){
             error: 400,
             text: checked.errors.reduce((str, current) => str + current + " ", "")
         });
+    }
+});
+
+app.post('/import', function(req, res){
+    var key = req.query.key || req.body.key;
+    if(key && key.length >= 0 && key.length <= 50 && checkKey(key)){
+        if(req.body){
+            evaluation.persistAll(req.body);
+            res.status(200).json({
+                text: 'Daten erfolgreich importiert',
+                entries: req.body.length
+            });
+        }else{
+            res.status(400).json({error: 'invalid data provided'});
+        }
+    }else{
+        res.status(403).json({error: 'inavlid access key provided'});
     }
 });
 
